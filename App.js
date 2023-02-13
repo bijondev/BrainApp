@@ -4,13 +4,17 @@ import { StyleSheet, Text, View } from "react-native";
 import StartGame from "./components/screens/StartGame";
 
 export default function App() {
-  return <StartGame />;
+  return (
+    <View style={styles.rootStyle}>
+      <StartGame />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  rootStyle: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#6ea6fa',
     alignItems: "center",
     justifyContent: "center"
   }
