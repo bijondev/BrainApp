@@ -25,7 +25,6 @@ function StartGame() {
         onPress: resetInputhandeler
       }
     ]);
-console.log(">>>>>>>>>>>>>>>>>>>");
       return;
 
     }
