@@ -1,25 +1,37 @@
 import { useState } from "react";
-import Title from '../ui/Title';
-import Colors from '../ui/colors';
-
 import {
   StyleSheet,
   TextInput,
   View,
   Text,
-  Alert,
-  SafeAreaView,
+  Alert
 } from "react-native";
+import Title from '../ui/Title';
+import Colors from '../ui/Colors';
+import NumberContainer from "./NumberContainer";
 
-function GameScreen() {
+
+function generateRandomNumber(min, max, exclude){
+    const rnNum = Math.floor(Math.random()+(max-min))+min;
+    if(rnNum == exclude){
+        return generateRandomNumber(min, max, exclude);
+    }
+    else{
+        return rnNum;
+    }
+}
+
+function GameScreen({userNumber}) {
+  const initialGuess = generateRandomNumber(1,100, userNumber);
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
   return (
-    <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
+    <View style={styles.screen} >
+      <Title>Opponents Guess</Title>
+      <NumberContainer>{currentGuess}</NumberContainer>
       <View>
         <Text>Higher or lower?</Text>
-        {/* + - */}
       </View>
-      {/* <View>Log Rounds</View> */}
     </View>
   );
 }
@@ -38,5 +50,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderWidth: 2,
     borderColor: Colors.accent500,
-  },
+  }
 });
