@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View, Alert } from "react-native";
 
 import PrimaryButton from "../../components/ui/PrimaryButton";
 
-function StartGame() {
+function StartGame({onpickedNumber}) {
   const [enterNumber, setEnterNumber] = useState('');
 
   function numberInputhandeller(enterText){
@@ -26,8 +26,8 @@ function StartGame() {
       }
     ]);
       return;
-
     }
+    onpickedNumber(chosenNumber);
   }
 
 
@@ -45,7 +45,7 @@ function StartGame() {
       />
       <View style={styles.buttonsContainner}>
         <View style={styles.buttonContainner}>
-          <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={resetInputhandeler} >Reset</PrimaryButton>
         </View>
         <View style={styles.buttonContainner}>
           <PrimaryButton onPress={confirmInputhandeler} >Confirm</PrimaryButton>
