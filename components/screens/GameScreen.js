@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, TextInput, View, Text, Alert } from "react-native";
 import Title from "../ui/Title";
 import Colors from "../ui/Colors";
@@ -18,13 +18,19 @@ function generateRandomNumber(min, max, exclude) {
   }
 }
 
-function GameScreen(userNumber) {
-  const initialGuess = generateRandomNumber(min, max, userNumber);
+function GameScreen(userNumber, onGameOver) {
+  const initialGuess = generateRandomNumber(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
+  useEffect(() => {
+    if (currentGuess === userNumber) {
+      onGameOver();
+    }
+  }),[currentGuess, userNumber, onGameOver];
 
   function nextHandeler(direction) {
     console.log("nextHandeler>>>>>>>>>>>>>>>>>>>>");
-    console.log(currentGuess , userNumber.userNumber);
+    console.log(currentGuess, userNumber.userNumber);
     if (
       (direction === "lower" && currentGuess < userNumber.userNumber) ||
       (direction === "greater" && currentGuess > userNumber.userNumber)
@@ -46,8 +52,15 @@ function GameScreen(userNumber) {
 
     console.log(min, max, currentGuess);
 
-    const newNumber = generateRandomNumber(min, max, currentGuess);
-    setCurrentGuess(newNumber);
+    if(currentGuess !== userNumber.userNumber){
+const newNumber = generateRandomNumber(min, max, currentGuess);
+setCurrentGuess(newNumber);
+    }
+    else{
+      onGameOver();
+    }
+
+    
   }
   return (
     <View style={styles.screen}>
